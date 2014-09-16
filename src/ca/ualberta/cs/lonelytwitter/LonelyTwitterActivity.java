@@ -23,7 +23,6 @@ public class LonelyTwitterActivity extends Activity {
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,16 +33,15 @@ public class LonelyTwitterActivity extends Activity {
 		Button saveButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
-		saveButton.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				setResult(RESULT_OK);
-				String text = bodyText.getText().toString();
-				saveInFile(text, new Date(System.currentTimeMillis()));
-				finish();
-
-			}
-		});
+//			saveButton.setOnClickListener(new View.OnClickListener() {
+//		});
+	}
+	
+	public void onClick(View v) {
+		setResult(RESULT_OK);
+		String text = bodyText.getText().toString();
+		saveInFile(text, new Date(System.currentTimeMillis()));
+		finish();
 	}
 
 	@Override
@@ -66,6 +64,7 @@ public class LonelyTwitterActivity extends Activity {
 				tweets.add(line);
 				line = in.readLine();
 			}
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -81,7 +80,7 @@ public class LonelyTwitterActivity extends Activity {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					Context.MODE_APPEND);
-			fos.write(new String(date.toString() + " | " + text)
+			fos.write(new String(date.toString() + " |\n" + text + "\n")
 					.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
